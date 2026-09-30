@@ -1,0 +1,19 @@
+{
+  "name": "login-page-password-strength",
+  "version": "1.0.0",
+  "description": "Dynamic password field with real-time strength indicator bar styled with CSS and JS, ready for Vercel deployment.",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  },
+  "keywords": [
+    "password-strength-meter",
+    "vercel",
+    "glassmorphism",
+    "vanilla-js",
+    "css-animations"
+  ],
+  "author": "",
+  "license": "MIT"
+}

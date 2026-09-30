@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SecureAuth - Dynamic Password Strength Verification</title>
+  <meta name="description" content="Interactive account registration with real-time dynamic password strength meter, security analytics, and instant generator." />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="dark-theme">
+  <!-- Background Decorative Glowing Orbs -->
+  <div class="bg-glow-container">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+    <div class="bg-grid-overlay"></div>
+  </div>
+
+  <div class="app-wrapper">
+    <!-- Header / Nav -->
+    <header class="navbar">
+      <div class="logo">
+        <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <span class="logo-text">Aegis<span>Guard</span></span>
+      </div>
+      <div class="nav-controls">
+        <button id="themeToggleBtn" class="icon-btn" aria-label="Toggle Theme" title="Toggle Light/Dark Theme">
+          <i class="fa-solid fa-sun icon-sun"></i>
+          <i class="fa-solid fa-moon icon-moon"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="main-container">
+      <div class="form-card">
+        <div class="card-header">
+          <div class="badge"><i class="fa-solid fa-lock"></i> 256-Bit Encrypted Security</div>
+          <h2>Create Your Account</h2>
+          <p>Join thousands of security-conscious professionals today.</p>
+        </div>
+
+        <form id="registrationForm" novalidate autocomplete="off">
+          <!-- Full Name Input -->
+          <div class="input-group">
+            <label for="fullName">Full Name</label>
+            <div class="input-wrapper">
+              <i class="fa-regular fa-user input-icon"></i>
+              <input type="text" id="fullName" placeholder="e.g. Alex Morgan" required />
+              <i class="fa-solid fa-circle-check status-icon success"></i>
+            </div>
+          </div>
+
+          <!-- Email Address Input -->
+          <div class="input-group">
+            <label for="email">Email Address</label>
+            <div class="input-wrapper">
+              <i class="fa-regular fa-envelope input-icon"></i>
+              <input type="email" id="email" placeholder="alex@company.com" required />
+              <i class="fa-solid fa-circle-check status-icon success"></i>
+            </div>
+          </div>
+
+          <!-- Password Input & Dynamic Strength Meter Section -->
+          <div class="input-group password-group">
+            <div class="label-row">
+              <label for="password">Password</label>
+              <button type="button" id="generateBtn" class="text-btn">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Strong
+              </button>
+            </div>
+            
+            <div class="input-wrapper">
+              <i class="fa-solid fa-key input-icon"></i>
+              <input type="password" id="password" placeholder="Create a strong password" required />
+              <button type="button" id="togglePasswordBtn" class="toggle-eye" aria-label="Toggle Password Visibility">
+                <i class="fa-regular fa-eye" id="eyeIcon"></i>
+              </button>
+            </div>
+
+            <!-- Dynamic Password Strength Bar Container -->
+            <div class="strength-container" id="strengthContainer">
+              <div class="strength-bar-wrapper">
+                <div class="strength-bar-bg">
+                  <div class="strength-bar-fill" id="strengthFill"></div>
+                </div>
+                <!-- Strength Steps Indicator Markers -->
+                <div class="strength-steps">
+                  <span class="step-segment"></span>
+                  <span class="step-segment"></span>
+                  <span class="step-segment"></span>
+                  <span class="step-segment"></span>
+                </div>
+              </div>
+
+              <!-- Strength Info Bar: Label & Score -->
+              <div class="strength-meta-row">
+                <span class="strength-text" id="strengthText">Enter password</span>
+                <span class="strength-percent" id="strengthPercent">0%</span>
+              </div>
+            </div>
+
+            <!-- Security Analytics Card: Time to Crack -->
+            <div class="crack-time-card" id="crackTimeCard">
+              <div class="crack-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+              <div class="crack-info">
+                <span class="crack-label">Estimated Time to Crack:</span>
+                <span class="crack-value" id="crackValue">Instant</span>
+              </div>
+            </div>
+
+            <!-- Real-time Criteria Checklist -->
+            <div class="requirements-box">
+              <p class="req-title">Password must contain:</p>
+              <div class="req-grid">
+                <div class="req-item" id="req-length">
+                  <i class="fa-solid fa-circle-notch req-icon"></i>
+                  <span>At least 8 characters</span>
+                </div>
+                <div class="req-item" id="req-uppercase">
+                  <i class="fa-solid fa-circle-notch req-icon"></i>
+                  <span>Uppercase letter (A-Z)</span>
+                </div>
+                <div class="req-item" id="req-lowercase">
+                  <i class="fa-solid fa-circle-notch req-icon"></i>
+                  <span>Lowercase letter (a-z)</span>
+                </div>
+                <div class="req-item" id="req-number">
+                  <i class="fa-solid fa-circle-notch req-icon"></i>
+                  <span>Number (0-9)</span>
+                </div>
+                <div class="req-item" id="req-special">
+                  <i class="fa-solid fa-circle-notch req-icon"></i>
+                  <span>Special symbol (!@#$)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Confirm Password Field -->
+          <div class="input-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-lock input-icon"></i>
+              <input type="password" id="confirmPassword" placeholder="Re-enter password" required />
+              <span class="match-badge" id="matchBadge"><i class="fa-solid fa-check"></i> Matches</span>
+            </div>
+          </div>
+
+          <!-- Terms Checkbox -->
+          <div class="checkbox-group">
+            <label class="custom-checkbox">
+              <input type="checkbox" id="termsCheck" required />
+              <span class="checkmark"></span>
+              <span class="terms-text">I accept the <a href="#terms">Terms of Service</a> and <a href="#privacy">Privacy Policy</a></span>
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" id="submitBtn" class="submit-btn" disabled>
+            <span class="btn-text">Create Account</span>
+            <i class="fa-solid fa-arrow-right btn-icon"></i>
+          </button>
+        </form>
+
+        <div class="card-footer">
+          <p>Already have an account? <a href="#login">Sign in</a></p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
